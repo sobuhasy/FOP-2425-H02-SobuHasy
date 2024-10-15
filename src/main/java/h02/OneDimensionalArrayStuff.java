@@ -21,6 +21,7 @@ public class OneDimensionalArrayStuff {
      * @param value the value to append
      * @return a new array that is a copy of the input array with the given value appended at the end
      */
+    @SuppressWarnings("ManualArrayCopy")
     @StudentImplementationRequired("H2.1.1")
     public static int[] push(final int[] array, final int value) {
         // TODO: H2.1.1
