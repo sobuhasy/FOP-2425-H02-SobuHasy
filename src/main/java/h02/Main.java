@@ -6,6 +6,7 @@ import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 import static org.tudalgo.algoutils.student.io.PropertyUtils.getIntProperty;
 import static org.tudalgo.algoutils.student.test.StudentTestUtils.printTestResults;
+import static org.tudalgo.algoutils.student.test.StudentTestUtils.testEquals;
 
 /**
  * Main entry point in executing the program.

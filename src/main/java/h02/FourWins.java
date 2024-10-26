@@ -1,5 +1,7 @@
 package h02;
 
+import fopbot.Direction;
+import fopbot.Robot;
 import fopbot.RobotFamily;
 import fopbot.World;
 import h02.template.InputHandler;
