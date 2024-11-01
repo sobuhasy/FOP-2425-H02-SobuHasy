@@ -69,7 +69,7 @@ public class Main {
     /**
      * Perform sanity checks for exercise H2.2
      */
-    @StudentImplementationRequired("H2.3")
+    @StudentImplementationRequired("H2.4")
     public static void sanityChecksH22() {
         // setting world size
         World.setSize(4, 5);
@@ -92,8 +92,8 @@ public class Main {
             {RobotFamily.SQUARE_BLUE, RobotFamily.SQUARE_BLUE, RobotFamily.SQUARE_BLUE, RobotFamily.SQUARE_RED},
         };
 
-        // TODO: H2.3
-        org.tudalgo.algoutils.student.Student.crash("H2.3 - Remove if implemented");
+        // TODO: H2.4
+        org.tudalgo.algoutils.student.Student.crash("H2.4 - Remove if implemented");
     }
 
 }
