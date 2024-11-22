@@ -25,7 +25,18 @@ public class OneDimensionalArrayStuff {
     @StudentImplementationRequired("H2.1.1")
     public static int[] push(final int[] array, final int value) {
         // TODO: H2.1.1
-        return org.tudalgo.algoutils.student.Student.crash("H2.1.1 - Remove if implemented");
+        // Creates a new array that is one element larger than the input array
+        int [] newArray = new int[array.length + 1];
+
+        // Copy all elements from the input array to the new array
+        System.arraycopy(array, 0, newArray, 0, array.length);
+
+        // Add the new value to the end of the new arrray
+        newArray[array.length] = value;
+
+        // Return the new array
+        return newArray;
+        // return org.tudalgo.algoutils.student.Student.crash("H2.1.1 - Remove if implemented");
     }
 
     /**
@@ -38,7 +49,9 @@ public class OneDimensionalArrayStuff {
     @StudentImplementationRequired("H2.1.1")
     public static int[] calculateNextFibonacci(final int[] array) {
         // TODO: H2.1.1
-        return org.tudalgo.algoutils.student.Student.crash("H2.1.1 - Remove if implemented");
+        int nextFibonacci = array[array.length - 1] + array[array.length - 2];
+        return push(array, nextFibonacci);
+        // return org.tudalgo.algoutils.student.Student.crash("H2.1.1 - Remove if implemented");
     }
 
     /**
@@ -50,6 +63,16 @@ public class OneDimensionalArrayStuff {
     @StudentImplementationRequired("H2.1.1")
     public static int fibonacci(final int n) {
         // TODO: H2.1.1
-        return org.tudalgo.algoutils.student.Student.crash("H2.1.1 - Remove if implemented");
+        if (n == 0) {
+            return 0;
+        } else if (n == 1) {
+            return 1;
+        }
+        int[] fibonacciArray = {0, 1};
+        for (int i = 2; i <= n; i++) {
+            fibonacciArray = calculateNextFibonacci(fibonacciArray);
+        }
+        return fibonacciArray[fibonacciArray.length - 1];
+        // return org.tudalgo.algoutils.student.Student.crash("H2.1.1 - Remove if implemented");
     }
 }

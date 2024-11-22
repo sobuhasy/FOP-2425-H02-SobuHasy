@@ -70,7 +70,12 @@ public class FourWins {
     @StudentImplementationRequired("H2.2.1")
     public static boolean validateInput(final int column, final RobotFamily[][] stones) {
         // TODO: H2.2.1
-        return org.tudalgo.algoutils.student.Student.crash("H2.2.1 - Remove if implemented");
+        // check if column is within bounds
+        if (column < 0 || column >= World.getWidth()) {
+            return false;
+        }
+        return stones[0][column] == null;
+        // return org.tudalgo.algoutils.student.Student.crash("H2.2.1 - Remove if implemented");
     }
 
 
@@ -86,7 +91,15 @@ public class FourWins {
     @StudentImplementationRequired("H2.2.2")
     public static int getDestinationRow(final int column, final RobotFamily[][] stones) {
         // TODO: H2.2.2
-        return org.tudalgo.algoutils.student.Student.crash("H2.2.2 - Remove if implemented");
+        // iterate from the bottom to the top of the column
+        for (int row = World.getHeight() - 1; row >= 0; row--){
+            if (stones[row][column] == null){
+                return row;
+            }
+        }
+        // if no empty slot is found, return -1
+        return -1;
+        // return org.tudalgo.algoutils.student.Student.crash("H2.2.2 - Remove if implemented");
     }
 
     /**
@@ -105,7 +118,24 @@ public class FourWins {
     @StudentImplementationRequired("H2.2.2")
     public static void dropStone(final int column, final RobotFamily[][] stones, final RobotFamily currentPlayer) {
         // TODO: H2.2.2
-        org.tudalgo.algoutils.student.Student.crash("H2.2.2 - Remove if implemented");
+        // Create a new instacne of Robot at the top of the column
+        Robot stone = new Robot(column, World.getHeight() - 1, Direction.DOWN, 0, currentPlayer);
+
+        // Get the destination row
+        int destinationRow = getDestinationRow(column, stones);
+
+        // The stone falls until it reaches the destination row
+        while (stone.getY() > destinationRow){
+            stone.move();
+        }
+
+        // The stone must rotate twice to face upwards
+        stone.turnLeft();
+        stone.turnLeft();
+
+        // Mark the slot as occupied by the currentPlayer
+        stones[destinationRow][column] = currentPlayer;
+        // org.tudalgo.algoutils.student.Student.crash("H2.2.2 - Remove if implemented");
     }
 
 
@@ -121,7 +151,8 @@ public class FourWins {
     @StudentImplementationRequired("H2.2.3")
     public static boolean testWinConditions(final RobotFamily[][] stones, final RobotFamily currentPlayer) {
         // TODO: H2.2.3
-        return org.tudalgo.algoutils.student.Student.crash("H2.2.3 - Remove if implemented");
+        return testWinHorizontal(stones, currentPlayer) || testWinVertical(stones, currentPlayer) || testWinDiagonal(stones, currentPlayer);
+        // return org.tudalgo.algoutils.student.Student.crash("H2.2.3 - Remove if implemented");
     }
 
     /**
@@ -135,8 +166,30 @@ public class FourWins {
     @StudentImplementationRequired("H2.2.3")
     public static boolean testWinHorizontal(final RobotFamily[][] stones, final RobotFamily currentPlayer) {
         // TODO: H2.2.3
-        return org.tudalgo.algoutils.student.Student.crash("H2.2.3 - Remove if implemented");
+        // Iterate through each row from bottom to top
+        for (int row = 0; row < World.getHeight(); row++){
+            int count = 0; // Initialize counter for consecutive stones
+
+            // Iterate through each column from left to right
+            for (int column = 0; column < World.getWidth(); column++){
+                // Checks if the current field has the currentPlayer's stone
+                if (stones[row][column] == currentPlayer){
+                    count++; // Increment the counter
+                    // Checks if the counter has reached 4
+                    if (count == 4){
+                        return true; // The currentPlayer has won
+                    } else {
+                        count = 0; // Resets the counter
+                    }
+                }
+            }
+
+        }
+        // If no horizontal win condition is met, return false
+        return false;
+        // return org.tudalgo.algoutils.student.Student.crash("H2.2.3 - Remove if implemented");
     }
+
 
     /**
      * Checks if the current player has won by forming a vertical line of at least consecutive four stones.
@@ -147,9 +200,29 @@ public class FourWins {
      * @return true if the current player has formed a vertical line of at least four stones; false otherwise.
      */
     @StudentImplementationRequired("H2.2.3")
-    public static boolean testWinVertical(final RobotFamily[][] stones, final RobotFamily currentPlayer) {
+        public static boolean testWinVertical(final RobotFamily[][] stones, final RobotFamily currentPlayer) {
         // TODO: H2.2.3
-        return org.tudalgo.algoutils.student.Student.crash("H2.2.3 - Remove if implemented");
+            // Iterate through each column from left to right
+            for (int column = 0; column < World.getWidth(); column++) {
+                int count = 0; // Initialize counter for consecutive stones
+
+                // Iterate through each row from bottom to top
+                for (int row = 0; row < World.getHeight(); row++) {
+                    // Checks if the current field has the currentPlayer's stone
+                    if (stones[row][column] == currentPlayer) {
+                        count++; // Increment the counter
+                        // Checks if the counter has reached 4
+                        if (count == 4) {
+                            return true; // The currentPlayer has won
+                        } else {
+                            count = 0; // Resets the counter
+                        }
+                    }
+                }
+            }
+            // If no vertical win condition is met, return false
+        return false;
+        // return org.tudalgo.algoutils.student.Student.crash("H2.2.3 - Remove if implemented");
     }
 
     /**
@@ -208,7 +281,12 @@ public class FourWins {
     @StudentImplementationRequired("H2.2.4")
     public static RobotFamily nextPlayer(final RobotFamily currentPlayer) {
         // TODO: H2.2.4
-        return org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
+        if (currentPlayer == RobotFamily.SQUARE_BLUE){
+            return RobotFamily.SQUARE_RED;
+        } else {
+            return RobotFamily.SQUARE_BLUE;
+        }
+        // return org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
     }
 
     /**
@@ -219,7 +297,9 @@ public class FourWins {
         inputHandler.displayDrawStatus();
 
         // TODO: H2.2.4
-        org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
+
+        System.out.println("No valid columns found. Hence, game ends with a draw.");
+        // org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
     }
 
     /**
@@ -232,7 +312,9 @@ public class FourWins {
         inputHandler.displayWinnerStatus(winner);
 
         // TODO: H2.2.4
-        org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
+
+        System.out.println("Player " + winner + " has won the game.");
+        // org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
     }
 
     /**
@@ -244,7 +326,13 @@ public class FourWins {
     @StudentImplementationRequired("H2.2.4")
     public static void colorFieldBackground(final RobotFamily winner) {
         // TODO: H2.2.4
-        org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
+        // Iterate through each field and set the color of the field to the winner's color
+        for (int row = 0; row < World.getHeight(); row++){
+            for (int column = 0; column < World.getWidth(); column++){
+                setFieldColor(column, row, winner);
+            }
+        }
+        // org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
     }
 
     /**
@@ -266,7 +354,8 @@ public class FourWins {
         while (!finished) {
             // TODO: H2.2.4
             // set next player
-            org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
+            currentPlayer = nextPlayer(currentPlayer);
+            // org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
 
             // wait for click in column (DO NOT TOUCH)
             finished = draw = isGameBoardFull(stones);
@@ -277,7 +366,10 @@ public class FourWins {
 
             // TODO: H2.2.4
             // let stone drop
+            dropStone(column, stones, currentPlayer);
+
             // test win conditions
+            finished = testWinConditions(stones, currentPlayer);
             org.tudalgo.algoutils.student.Student.crash("H2.2.4 - Remove if implemented");
         }
 
